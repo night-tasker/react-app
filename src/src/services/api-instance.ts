@@ -3,8 +3,6 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Token } from "../types/user/token";
 import TokenService from "./token-service";
 
-export const API_URL = "http://localhost:5000/api/v1/users/";
-
 const defaultSuccessRequestMessage = "Успешно";
 const defaultErrorRequestMessage = "Что-то пошло не так";
 
