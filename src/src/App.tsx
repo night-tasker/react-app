@@ -45,7 +45,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (currentUser.isAuthenticated === null) {
+    console.log(currentUser);
+    if (!currentUser || currentUser.isAuthenticated === null) {
       return;
     }
 
@@ -67,7 +68,7 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser, navigate]);
 
-  return (
+  return currentUser && currentUser.isAuthenticated !== null ? (
     <FullPageWrapper>
       {location.pathname.startsWith(RoutePaths.Authenticated.Home) ? (
         <Layout>
@@ -91,7 +92,7 @@ function App() {
         allRoutes[location.pathname]?.component
       )}
     </FullPageWrapper>
-  );
+  ) : null;
 }
 
 const StyledContent = styled(Content)<{ $inputHeight: number }>`

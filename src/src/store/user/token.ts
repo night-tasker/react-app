@@ -7,9 +7,11 @@ const updateTokenFx = createEffect<() => Token | null>((): Token | null => {
   return getToken();
 });
 
-export const $token = createStore<Token | null>(getToken()).on(
+export const $token = createStore<Token | null>(null).on(
   updateTokenFx.doneData,
-  (state, payload) => payload
+  (_, payload) => {
+    return payload;
+  }
 );
 
 const update = createEvent();

@@ -2,15 +2,15 @@ import { RegisterUser } from "../types/user/register-user";
 import axiosInstance from "./api-instance";
 import { LoginUser } from "../types/user/login-user";
 import TokenService from "./token-service";
-import { PASSPORT_API_USERS_URL } from "../paths";
+import { IDENTITY_API_USERS_URL } from "../paths";
 
 const register = (user: RegisterUser) => {
-  return axiosInstance.post(`${PASSPORT_API_USERS_URL}/register`, user);
+  return axiosInstance.post(`${IDENTITY_API_USERS_URL}/register`, user);
 };
 
 const login = (user: LoginUser) => {
   return axiosInstance
-    .post(`${PASSPORT_API_USERS_URL}/login`, user)
+    .post(`${IDENTITY_API_USERS_URL}/login`, user)
     .then((response) => {
       if (response.data.accessToken) {
         TokenService.setToken(response.data);

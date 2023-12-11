@@ -1,5 +1,5 @@
 import { getToken } from "../lib/get-token";
-import { PASSPORT_API_USERS_URL } from "../paths";
+import { IDENTITY_API_USERS_URL } from "../paths";
 import { updateToken } from "../store/user/token";
 import { Token } from "../types/user/token";
 import apiInstance from "./api-instance";
@@ -17,7 +17,7 @@ const clearToken = () => {
 
 const refreshToken = async () => {
   const response = await apiInstance.post(
-    `${PASSPORT_API_USERS_URL}/refresh-token`,
+    `${IDENTITY_API_USERS_URL}/refresh-token`,
     getToken()
   );
 

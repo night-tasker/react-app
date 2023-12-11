@@ -1,4 +1,4 @@
-import { createEffect, createStore, forward, sample } from "effector";
+import { createEffect, createStore, sample } from "effector";
 import { CurrentUserInfo } from "../../types/user/user";
 import { Token } from "../../types/user/token";
 import { $token } from "./token";
@@ -7,7 +7,7 @@ import UserService from "../../services/user-service";
 
 const currentUserFx = createEffect(
   async (token: Token | null): Promise<CurrentUserInfo> => {
-    if (token == null) {
+    if (token == null || !token.accessToken || !token.refreshToken) {
       return { isAuthenticated: false, userInfo: null };
     }
     try {
@@ -22,16 +22,13 @@ const currentUserFx = createEffect(
 const $currentUser = createStore<CurrentUserInfo>({
   isAuthenticated: null,
   userInfo: null,
-}).on(currentUserFx.doneData, (state, payload) => {
+}).on(currentUserFx.doneData, (_, payload) => {
   return { ...payload };
 });
 
-forward({ from: $token.updates, to: currentUserFx });
-
 sample({
-  clock: $token,
-  source: currentUserFx.doneData,
-  target: $currentUser,
+  source: $token,
+  target: currentUserFx,
 });
 
 const useCurrentUser = () => {
