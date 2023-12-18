@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import { allRoutes, authenticatedRoutes } from "./routes";
+import { allRoutes } from "./routes";
 
 const getGlobalRouteDefinitions = () => {
   return Object.keys(allRoutes).map((x) => {

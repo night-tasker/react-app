@@ -1,5 +1,4 @@
 import { Menu } from "antd";
-import { useMemo } from "react";
 import { authenticatedRoutes } from "./routes";
 import { useNavigate } from "react-router-dom";
 

@@ -1,5 +1,4 @@
-import { Button, Form, Input, Typography } from "antd";
-import { styled } from "styled-components";
+import { Button } from "antd";
 import AuthService from "../../../../services/auth-service";
 import {
   handleFailedRequest,
@@ -9,6 +8,8 @@ import { LoginUser } from "../../../../types/user/login-user";
 import { RoutePaths } from "../../../../routing/route-paths";
 import { useNavigate } from "react-router-dom";
 import ReplaceLink from "../../../../components/routing/replace-link";
+import ApplicationForm from "../../../../components/form";
+import getLoginFields from "../../lib/get-login-fields";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -25,68 +26,23 @@ const LoginForm = () => {
   };
 
   return (
-    <Wrapper>
-      <TitleWrapper>
-        <Typography.Title level={3}>Вход в систему</Typography.Title>
-      </TitleWrapper>
-      <StyledForm
-        name="basic"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        autoComplete="off"
-        layout="vertical"
-      >
-        <Form.Item<LoginUser>
-          label="Имя пользователя"
-          name="username"
-          rules={[{ required: true, message: "Имя пользователя обязательно" }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item<LoginUser>
-          label="Пароль"
-          labelCol={{ md: { flex: "none" } }}
-          name="password"
-          rules={[{ required: true, message: "Пароль обязателен" }]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <ButtonWrapper>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Войти
-            </Button>
-          </Form.Item>
-        </ButtonWrapper>
-
-        <RegisterLinkWrapper>
-          <ReplaceLink
-            path={RoutePaths.Global.Registration}
-            title="Зарегистрироваться"
-          />
-        </RegisterLinkWrapper>
-      </StyledForm>
-    </Wrapper>
+    <ApplicationForm<LoginUser>
+      title="Вход"
+      onFinish={onFinish}
+      submitButton={
+        <Button type="primary" htmlType="submit">
+          Войти
+        </Button>
+      }
+      cancelButton={
+        <ReplaceLink
+          path={RoutePaths.Global.Registration}
+          title="Зарегистрироваться"
+        />
+      }
+      fields={getLoginFields()}
+    />
   );
 };
 
-const StyledForm = styled(Form)`
-  width: 100%;
-`;
-
-const TitleWrapper = styled.div`
-  text-align: center;
-`;
-
-const Wrapper = styled.div``;
-
-const ButtonWrapper = styled.div`
-  text-align: center;
-`;
-
-const RegisterLinkWrapper = styled.div`
-  text-align: center;
-`;
 export default LoginForm;
