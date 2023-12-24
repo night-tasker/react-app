@@ -7,7 +7,7 @@ const LoginPage = () => {
     <Wrapper>
       <FormWrapper>
         <Card>
-          <LoginForm />
+          <LoginForm key={"login"} />
         </Card>
       </FormWrapper>
     </Wrapper>

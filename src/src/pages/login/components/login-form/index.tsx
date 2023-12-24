@@ -11,7 +11,11 @@ import ReplaceLink from "../../../../components/routing/replace-link";
 import ApplicationForm from "../../../../components/form";
 import getLoginFields from "../../lib/get-login-fields";
 
-const LoginForm = () => {
+interface Props {
+  key?: string;
+}
+
+const LoginForm = ({ key }: Props) => {
   const navigate = useNavigate();
 
   const onFinish = (values: LoginUser) => {
@@ -41,6 +45,7 @@ const LoginForm = () => {
         />
       }
       fields={getLoginFields()}
+      key={key}
     />
   );
 };

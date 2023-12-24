@@ -2,22 +2,20 @@ import { RegisterUser } from "../types/user/register-user";
 import axiosInstance from "./api-instance";
 import { LoginUser } from "../types/user/login-user";
 import TokenService from "./token-service";
-import { IDENTITY_API_USERS_URL } from "../paths";
+import { API_USERS_URL } from "../paths";
 
 const register = (user: RegisterUser) => {
-  return axiosInstance.post(`${IDENTITY_API_USERS_URL}/register`, user);
+  return axiosInstance.post(`${API_USERS_URL}/register`, user);
 };
 
 const login = (user: LoginUser) => {
-  return axiosInstance
-    .post(`${IDENTITY_API_USERS_URL}/login`, user)
-    .then((response) => {
-      if (response.data.accessToken) {
-        TokenService.setToken(response.data);
-      }
+  return axiosInstance.post(`${API_USERS_URL}/login`, user).then((response) => {
+    if (response.data.accessToken) {
+      TokenService.setToken(response.data);
+    }
 
-      return response.data;
-    });
+    return response.data;
+  });
 };
 
 const logout = () => {

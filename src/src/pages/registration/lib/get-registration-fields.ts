@@ -8,8 +8,8 @@ const getRegistrationFields = (): Field[] => {
       rules: [{ required: true, message: "Имя пользователя обязательно" }],
     },
     {
-      name: "confirmPassword",
-      label: "Подтвердите пароль",
+      name: "password",
+      label: "Пароль",
       rules: [{ required: true, message: "Пароль обязателен" }],
       type: "password",
     },

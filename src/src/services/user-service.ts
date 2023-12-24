@@ -1,8 +1,8 @@
-import { IDENTITY_API_USERS_URL } from "../paths";
+import { API_USERS_URL } from "../paths";
 import apiInstance from "./api-instance";
 
 const getCurrentUserInfo = () => {
-  return apiInstance.get(`${IDENTITY_API_USERS_URL}/current`);
+  return apiInstance.get(`${API_USERS_URL}/current`);
 };
 
 const UserService = { getCurrentUserInfo };

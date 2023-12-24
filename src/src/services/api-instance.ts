@@ -2,6 +2,7 @@ import { message } from "antd";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Token } from "../types/user/token";
 import TokenService from "./token-service";
+import { API_USERS_URL } from "../paths";
 
 const defaultSuccessRequestMessage = "Успешно";
 const defaultErrorRequestMessage = "Что-то пошло не так";
@@ -17,20 +18,19 @@ axiosInstance.interceptors.request.use((request) => {
   return request;
 });
 
-let refreshTokenRetry = 0;
-
 axiosInstance.interceptors.response.use(
   (response) => {
     return response;
   },
   async (error) => {
     if (error.response.status === 401) {
-      if (refreshTokenRetry < 3) {
-        await TokenService.refreshToken();
-        refreshTokenRetry++;
-      } else {
-        refreshTokenRetry = 0;
+      if (error.config.url === `${API_USERS_URL}/refresh-token`) {
+        console.log(error);
+        TokenService.clearToken();
+        return Promise.resolve();
       }
+
+      await TokenService.refreshToken();
     }
     return Promise.reject(error);
   }

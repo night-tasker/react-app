@@ -11,7 +11,11 @@ import { useNavigate } from "react-router-dom";
 import ApplicationForm from "../../../../components/form";
 import getRegistrationFields from "../../lib/get-registration-fields";
 
-const RegistrationForm = () => {
+interface Props {
+  key?: string;
+}
+
+const RegistrationForm = ({ key }: Props) => {
   const navigate = useNavigate();
 
   const onFinish = (values: RegisterUser) => {
@@ -39,6 +43,7 @@ const RegistrationForm = () => {
         <ReplaceLink path={RoutePaths.Global.Login} title="Войти в систему" />
       }
       fields={getRegistrationFields()}
+      key={key}
     />
   );
 };

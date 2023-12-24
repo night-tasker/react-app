@@ -7,7 +7,7 @@ const RegistrationPage = () => {
     <Wrapper>
       <FormWrapper>
         <Card>
-          <RegistrationForm />
+          <RegistrationForm key="registration" />
         </Card>
       </FormWrapper>
     </Wrapper>
