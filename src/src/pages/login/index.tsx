@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { Card } from "antd";
-import LoginForm from "./components/login-form";
+import LoginForm from "features/login-form/ui";
 
 const LoginPage = () => {
   return (

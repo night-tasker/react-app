@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import RegistrationForm from "./components/registration-form";
+import RegistrationForm from "features/registration-form/ui";
 import { Card } from "antd";
 
 const RegistrationPage = () => {
