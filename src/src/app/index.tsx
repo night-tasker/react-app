@@ -16,6 +16,7 @@ import routeService from "./routing/route-service";
 import LayoutHeader from "widgets/layout-header";
 import { updateToken } from "entities/user/model/token";
 import ApplicationMenu from "./routing/application-menu";
+import AppLogo from "features/app-logo/ui";
 
 function App() {
   const [fullHeight, setFullHeight] = useState(0);
@@ -73,7 +74,7 @@ function App() {
         <Layout>
           <Sider trigger={null} collapsible collapsed={collapsed}>
             <LogoLabelWrapper className="demo-logo-vertical">
-              <LogoLabel>{collapsed ? "NT" : "NightTasker"}</LogoLabel>
+              <AppLogo collapsed={collapsed} />
             </LogoLabelWrapper>
             <ApplicationMenu />
           </Sider>
@@ -99,13 +100,6 @@ const StyledContent = styled(Content)<{ $inputHeight: number }>`
   padding: 24;
   min-height: ${(props) => props.$inputHeight + "px"};
   background: colorBgContainer;
-`;
-
-const LogoLabel = styled.h2`
-  color: white;
-  font-size: 24px;
-  padding: 0;
-  margin: 15px 0;
 `;
 
 const LogoLabelWrapper = styled.div`

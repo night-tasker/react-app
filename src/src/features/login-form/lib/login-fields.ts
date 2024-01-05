@@ -1,4 +1,6 @@
-export const getLoginFields = () => {
+import { Field } from "shared/components/form/types/field";
+
+export const getLoginFields = (): Field[] => {
   return [
     {
       name: "username",

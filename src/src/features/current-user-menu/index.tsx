@@ -4,11 +4,21 @@ import { SettingOutlined } from "@ant-design/icons";
 import { Button, Dropdown } from "antd";
 import { ItemType } from "antd/es/menu/hooks/useItems";
 import AuthService from "shared/services/auth-service";
+import { useNavigate } from "react-router-dom";
+import { RoutePaths } from "app/routing/route-paths";
 
 const CurrentUserMenu = () => {
-  const currentUserInfo = useCurrentUser();
+  const currentUser = useCurrentUser();
+  const navigate = useNavigate();
 
   const settingsItems: ItemType[] = [
+    {
+      key: "current-user-info",
+      label: "Профиль",
+      onClick: () => {
+        navigate(RoutePaths.Authenticated.Profile);
+      },
+    },
     {
       key: "logout",
       label: "Выход",
@@ -18,10 +28,10 @@ const CurrentUserMenu = () => {
     },
   ];
 
-  return currentUserInfo.isAuthenticated && currentUserInfo.userInfo ? (
+  return currentUser.isAuthenticated && currentUser.user ? (
     <Wrapper>
       <div>
-        <UserNameHeader>{currentUserInfo.userInfo?.userName}</UserNameHeader>
+        <UserNameHeader>{currentUser.user?.userName}</UserNameHeader>
       </div>
       <SettingsWrapper>
         <Dropdown menu={{ items: settingsItems }} trigger={["click"]}>

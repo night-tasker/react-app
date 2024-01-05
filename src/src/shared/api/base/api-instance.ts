@@ -25,7 +25,6 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     if (error.response.status === 401) {
       if (error.config.url === `${API_USERS_URL}/refresh-token`) {
-        console.log(error);
         TokenService.clearToken();
         return Promise.resolve();
       }

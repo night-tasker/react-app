@@ -10,6 +10,8 @@ interface Props<T> {
   submitButton: React.ReactElement;
   cancelButton: React.ReactElement;
   fields: Field[];
+  values?: T;
+  key?: string;
 }
 const ApplicationForm = <T extends {}>({
   title,
@@ -17,23 +19,34 @@ const ApplicationForm = <T extends {}>({
   submitButton,
   cancelButton,
   fields,
+  values,
+  key,
 }: Props<T>) => {
   return (
     <Wrapper>
       <TitleWrapper>
-        <Typography.Title level={3}>{title}</Typography.Title>
+        <Typography.Title level={3} key={key}>
+          {title}
+        </Typography.Title>
       </TitleWrapper>
       <StyledForm<T>
         name="basic"
-        initialValues={{ remember: true }}
+        initialValues={{ remember: false }}
         onFinish={onFinish}
         autoComplete="off"
         layout="vertical"
       >
-        {fields.map(({ name, label, rules, type }) => {
+        {fields.map(({ name, label, rules, type, disabled }) => {
+          const initialValue = (values as any)?.[name];
           return (
-            <Form.Item label={label} name={name} rules={rules}>
-              {ResolveInputTypes(type)}
+            <Form.Item
+              label={label}
+              name={name}
+              rules={rules}
+              initialValue={initialValue}
+              key={name}
+            >
+              {ResolveInputTypes(type, disabled)}
             </Form.Item>
           );
         })}

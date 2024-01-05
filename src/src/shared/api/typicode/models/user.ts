@@ -2,7 +2,7 @@ export type User = {
   userName: string;
 };
 
-export type CurrentUserInfo = {
-  userInfo: User | null;
+export type CurrentUser = {
+  user: User | null;
   isAuthenticated: boolean | null;
 };

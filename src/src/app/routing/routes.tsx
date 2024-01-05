@@ -1,6 +1,7 @@
 import RegistrationPage from "pages/registration";
 import { RoutePaths } from "./route-paths";
 import LoginPage from "pages/login";
+import UserProfilePage from "pages/user-profile/ui";
 
 export const allRoutes: Record<string, Route> = {
   [RoutePaths.Global.Registration]: {
@@ -21,6 +22,12 @@ export const allRoutes: Record<string, Route> = {
     component: <>Home</>,
     label: "Основная вкладка",
   },
+  [RoutePaths.Authenticated.Profile]: {
+    path: RoutePaths.Authenticated.Profile,
+    key: RoutePaths.Authenticated.Profile,
+    component: <UserProfilePage />,
+    label: "Профиль",
+  },
 };
 
 export const anonymousRoutes: Record<string, Route> = {
@@ -31,6 +38,9 @@ export const anonymousRoutes: Record<string, Route> = {
 export const authenticatedRoutes: Record<string, AuthenticatedRoute> = {
   [RoutePaths.Authenticated.Home]: {
     ...allRoutes[RoutePaths.Authenticated.Home],
+  },
+  [RoutePaths.Authenticated.Profile]: {
+    ...allRoutes[RoutePaths.Authenticated.Profile],
   },
 };
 
