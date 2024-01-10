@@ -8,6 +8,17 @@ const getRegistrationFields = (): Field[] => {
       rules: [{ required: true, message: "Имя пользователя обязательно" }],
     },
     {
+      name: "email",
+      label: "Email",
+      rules: [
+        {
+          required: true,
+          type: "email",
+          message: "Правильный формат Email обязателен",
+        },
+      ],
+    },
+    {
       name: "password",
       label: "Пароль",
       rules: [{ required: true, message: "Пароль обязателен" }],

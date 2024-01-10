@@ -39,10 +39,12 @@ const LoginForm = ({ key }: Props) => {
         </Button>
       }
       cancelButton={
-        <ReplaceLink
-          path={RoutePaths.Global.Registration}
-          title="Зарегистрироваться"
-        />
+        <Button type="link">
+          <ReplaceLink
+            path={RoutePaths.Global.Registration}
+            title="Зарегистрироваться"
+          />
+        </Button>
       }
       fields={getLoginFields()}
       key={key}

@@ -42,36 +42,27 @@ const CurrentUserInfoForm = () => {
       );
     }
     return (
-      <ApplicationForm<CurrentUserInfo>
-        title={"Профиль"}
-        onFinish={onSaveUserInfo}
-        submitButton={<Button htmlType={"submit"}>Сохранить</Button>}
-        cancelButton={<Button>Отменить</Button>}
-        fields={getCurrentUserInfoFields()}
-        values={currentUserInfoData ?? undefined}
-      />
+      <Wrapper>
+        <ApplicationForm<CurrentUserInfo>
+          title={"Профиль"}
+          onFinish={onSaveUserInfo}
+          submitButton={<Button htmlType={"submit"}>Сохранить</Button>}
+          cancelButton={<Button danger>Отменить</Button>}
+          fields={getCurrentUserInfoFields()}
+          values={currentUserInfoData ?? undefined}
+        />
+      </Wrapper>
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, currentUserInfoData]);
 
   return componentCallback();
-
-  // return loading === true || !currentUserInfoData ? (
-  //   <Spin />
-  // ) : (
-  //   <ApplicationForm<CurrentUserInfo>
-  //     title={"Профиль"}
-  //     onFinish={onSaveUserInfo}
-  //     submitButton={<Button htmlType={"submit"}>Сохранить</Button>}
-  //     cancelButton={<Button>Отменить</Button>}
-  //     fields={getCurrentUserInfoFields()}
-  //     values={currentUserInfoData ?? undefined}
-  //   />
-  // );
 };
 
 export default CurrentUserInfoForm;
 
 const Wrapper = styled.div`
+  width: 50%;
+  margin: auto;
   text-align: center;
 `;

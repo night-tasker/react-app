@@ -10,6 +10,7 @@ export const getCurrentUserInfoFields = (): Field[] => {
     {
       name: "email",
       label: "Почта",
+      disabled: true,
     },
     {
       name: "firstName",

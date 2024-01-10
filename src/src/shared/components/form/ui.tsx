@@ -1,6 +1,6 @@
 import { Form, Typography } from "antd";
 import { styled } from "styled-components";
-import React from "react";
+import React, { useEffect } from "react";
 import { Field } from "./types/field";
 import ResolveInputTypes from "shared/components/form/lib/resolve-input-type";
 
@@ -22,6 +22,16 @@ const ApplicationForm = <T extends {}>({
   values,
   key,
 }: Props<T>) => {
+  const [form] = Form.useForm<T>();
+
+  const resetValues = () => {
+    form.setFieldsValue(values as any);
+  };
+
+  useEffect(() => {
+    form.setFieldsValue(values as any);
+  }, [form, values]);
+
   return (
     <Wrapper>
       <TitleWrapper>
@@ -35,27 +45,23 @@ const ApplicationForm = <T extends {}>({
         onFinish={onFinish}
         autoComplete="off"
         layout="vertical"
+        form={form}
       >
         {fields.map(({ name, label, rules, type, disabled }) => {
-          const initialValue = (values as any)?.[name];
           return (
-            <Form.Item
-              label={label}
-              name={name}
-              rules={rules}
-              initialValue={initialValue}
-              key={name}
-            >
+            <Form.Item label={label} name={name} rules={rules} key={name}>
               {ResolveInputTypes(type, disabled)}
             </Form.Item>
           );
         })}
 
-        <ButtonWrapper>
-          <Form.Item>{submitButton}</Form.Item>
-        </ButtonWrapper>
+        <ButtonsWrapper>
+          <ButtonWrapper>
+            <Form.Item>{submitButton}</Form.Item>
+          </ButtonWrapper>
 
-        <RegisterLinkWrapper>{cancelButton}</RegisterLinkWrapper>
+          <ButtonWrapper onClick={resetValues}>{cancelButton}</ButtonWrapper>
+        </ButtonsWrapper>
       </StyledForm>
     </Wrapper>
   );
@@ -75,8 +81,11 @@ const Wrapper = styled.div``;
 
 const ButtonWrapper = styled.div`
   text-align: center;
+  width: 100%;
 `;
 
-const RegisterLinkWrapper = styled.div`
-  text-align: center;
+const ButtonsWrapper = styled.div`
+  display: flex;
+  width: 70%;
+  margin: auto;
 `;
