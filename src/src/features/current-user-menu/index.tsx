@@ -6,6 +6,7 @@ import { ItemType } from "antd/es/menu/hooks/useItems";
 import AuthService from "shared/services/auth-service";
 import { useNavigate } from "react-router-dom";
 import { RoutePaths } from "app/routing/route-paths";
+import CurrentUserMenuImage from "./ui/current-user-image";
 
 const CurrentUserMenu = () => {
   const currentUser = useCurrentUser();
@@ -30,9 +31,14 @@ const CurrentUserMenu = () => {
 
   return currentUser.isAuthenticated && currentUser.user ? (
     <Wrapper>
-      <div>
-        <UserNameHeader>{currentUser.user?.userName}</UserNameHeader>
-      </div>
+      <CurrentUserInfoWrapper>
+        <div>
+          <CurrentUserMenuImage />
+        </div>
+        <div>
+          <UserNameHeader>{currentUser.user?.userName}</UserNameHeader>
+        </div>
+      </CurrentUserInfoWrapper>
       <SettingsWrapper>
         <Dropdown menu={{ items: settingsItems }} trigger={["click"]}>
           <Button icon={<SettingOutlined />} style={{ border: "none" }} />
@@ -56,6 +62,11 @@ const UserNameHeader = styled.h1`
 
 const SettingsWrapper = styled.div`
   font-size: 20px;
+`;
+
+const CurrentUserInfoWrapper = styled.div`
+  display: flex;
+  gap: 10px;
 `;
 
 export default CurrentUserMenu;
