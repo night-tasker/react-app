@@ -6,15 +6,15 @@ import {
   forward,
 } from "effector";
 import { useStore } from "effector-react";
-import { UserImage } from "shared/api/typicode/models/user-image";
+import { ActiveUserImage } from "shared/api/typicode/models/user-image";
 import UserImageService from "shared/services/user-image-service";
 
 const getCurrentUserImageFx = createEffect(
-  async (): Promise<UserImage | null> => {
+  async (): Promise<ActiveUserImage | null> => {
     try {
       setCurrentUserImageLoading(true);
       const currentUserImageRequest =
-        await UserImageService.getCurrentUserImageUrl();
+        await UserImageService.getCurrentUserActiveImage();
       console.log(currentUserImageRequest);
       setCurrentUserImageLoading(false);
       return currentUserImageRequest.data;
@@ -32,16 +32,16 @@ forward({
   to: $currentUserImageLoading,
 });
 
-const $currentUserImage = createStore<UserImage | null>(null).on(
+const $currentUserImage = createStore<ActiveUserImage | null>(null).on(
   getCurrentUserImageFx.doneData,
   (_, payload) => {
     return payload;
   }
 );
 
-const useCurrentUserImage = (): [
-  { data: UserImage | null; loading: boolean },
-  Effect<void, UserImage | null, Error>
+const useCurrentUserActiveImage = (): [
+  { data: ActiveUserImage | null; loading: boolean },
+  Effect<void, ActiveUserImage | null, Error>
 ] => {
   return [
     {
@@ -52,4 +52,4 @@ const useCurrentUserImage = (): [
   ];
 };
 
-export default useCurrentUserImage;
+export default useCurrentUserActiveImage;

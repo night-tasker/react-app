@@ -1,22 +1,22 @@
 import { Avatar, Spin } from "antd";
-import useCurrentUserImage from "entities/user-image/model/current-user-image";
+import useCurrentUserActiveImage from "entities/user-image/model/current-user-active-image";
 import { useEffect } from "react";
 
 const CurrentUserMenuImage = () => {
   const [
     { data: currentUserImage, loading: currentUserImageLoading },
     fetchCurrentUserImage,
-  ] = useCurrentUserImage();
+  ] = useCurrentUserActiveImage();
 
   useEffect(() => {
     fetchCurrentUserImage();
   }, [fetchCurrentUserImage]);
 
-  return !currentUserImageLoading && currentUserImage ? (
-    <Avatar size={56} src={`${currentUserImage?.url}`} />
-  ) : (
+  return currentUserImageLoading ? (
     <Spin />
-  );
+  ) : currentUserImage?.url ? (
+    <Avatar size={56} src={`${currentUserImage?.url}`} />
+  ) : null;
 };
 
 export default CurrentUserMenuImage;

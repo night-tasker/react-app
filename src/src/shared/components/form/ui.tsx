@@ -5,7 +5,7 @@ import { Field } from "./types/field";
 import ResolveInputTypes from "shared/components/form/lib/resolve-input-type";
 
 interface Props<T> {
-  title: string;
+  title?: string;
   onFinish: (values: T) => void;
   submitButton: React.ReactElement;
   cancelButton: React.ReactElement;
@@ -35,9 +35,11 @@ const ApplicationForm = <T extends {}>({
   return (
     <Wrapper>
       <TitleWrapper>
-        <Typography.Title level={3} key={key}>
-          {title}
-        </Typography.Title>
+        {title && (
+          <Typography.Title level={3} key={key}>
+            {title}
+          </Typography.Title>
+        )}
       </TitleWrapper>
       <StyledForm<T>
         name="basic"

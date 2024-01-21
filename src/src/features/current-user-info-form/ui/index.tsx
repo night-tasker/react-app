@@ -3,10 +3,11 @@ import { useCallback, useEffect } from "react";
 import { CurrentUserInfo } from "shared/api/typicode/models/user-info";
 import ApplicationForm from "shared/components/form/ui";
 import { getCurrentUserInfoFields } from "../lib/user-info-fields";
-import { Button, Spin } from "antd";
+import { Button, Spin, Typography } from "antd";
 import UserInfoService from "shared/services/user-info-service";
 import { handleFailedRequest, handleSuccessRequest } from "shared";
 import { styled } from "styled-components";
+import CurrentUserInfoImagesUploader from "features/current-user-info-images-uploader/ui";
 
 const CurrentUserInfoForm = () => {
   const [{ data: currentUserInfoData, loading }, fetchCurrentUserInfo] =
@@ -43,8 +44,16 @@ const CurrentUserInfoForm = () => {
     }
     return (
       <Wrapper>
+        <TitleWrapper>
+          <Typography.Title level={3}>{"Профиль"}</Typography.Title>
+        </TitleWrapper>
+        <ImageTitleWrapper>
+          <ImageTitle>{"Фотография (максимум 4 загруженных)"}</ImageTitle>
+        </ImageTitleWrapper>
+        <ImageUploaderWrapper>
+          <CurrentUserInfoImagesUploader />
+        </ImageUploaderWrapper>
         <ApplicationForm<CurrentUserInfo>
-          title={"Профиль"}
           onFinish={onSaveUserInfo}
           submitButton={<Button htmlType={"submit"}>Сохранить</Button>}
           cancelButton={<Button danger>Отменить</Button>}
@@ -62,7 +71,21 @@ const CurrentUserInfoForm = () => {
 export default CurrentUserInfoForm;
 
 const Wrapper = styled.div`
-  width: 50%;
+  width: 43%;
   margin: auto;
   text-align: center;
+`;
+
+const TitleWrapper = styled.div`
+  text-align: center;
+`;
+
+const ImageTitle = styled.p``;
+
+const ImageTitleWrapper = styled.div`
+  text-align: left;
+`;
+
+const ImageUploaderWrapper = styled.div`
+  margin-bottom: 15px;
 `;

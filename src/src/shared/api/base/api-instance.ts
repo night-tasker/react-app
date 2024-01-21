@@ -1,8 +1,8 @@
-import { message } from "antd";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { API_USERS_URL } from "shared/config/paths";
 import TokenService from "shared/services/token-service";
 import { Token } from "../typicode/models/token";
+import { AlertMessageService } from "shared/services/alert-message-service";
 
 const defaultSuccessRequestMessage = "Успешно";
 const defaultErrorRequestMessage = "Что-то пошло не так";
@@ -37,14 +37,14 @@ axiosInstance.interceptors.response.use(
 
 export const handleSuccessRequest = (response: AxiosResponse) =>
   response?.data?.displayMessage
-    ? message.success(response.data.displayMessage)
-    : message.success(defaultSuccessRequestMessage);
+    ? AlertMessageService.showSuccessMessage(response.data.displayMessage)
+    : AlertMessageService.showSuccessMessage(defaultSuccessRequestMessage);
 
 export const handleFailedRequest = (
   error: AxiosError<{ displayMessage: string }>
 ) =>
   error.response?.data?.displayMessage
-    ? message.error(error.response?.data?.displayMessage)
-    : message.error(defaultErrorRequestMessage);
+    ? AlertMessageService.showErrorMessage(error.response?.data?.displayMessage)
+    : AlertMessageService.showErrorMessage(defaultErrorRequestMessage);
 
 export default axiosInstance;
