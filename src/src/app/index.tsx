@@ -6,13 +6,9 @@ import { Content } from "antd/es/layout/layout";
 import styled from "styled-components";
 import { Routes, useLocation, useNavigate } from "react-router-dom";
 import useCurrentUser from "entities/user/model/current-user";
-import {
-  anonymousRoutes,
-  allRoutes,
-  authenticatedRoutes,
-} from "./routing/routes";
+import { anonymousRoutes, allRoutes } from "./routing/routes";
 import { RoutePaths } from "./routing/route-paths";
-import routeService from "./routing/route-service";
+import RouteService from "./routing/route-service";
 import LayoutHeader from "widgets/layout-header";
 import { updateToken } from "entities/user/model/token";
 import ApplicationMenu from "./routing/application-menu";
@@ -49,20 +45,14 @@ function App() {
     if (!currentUser || currentUser.isAuthenticated === null) {
       return;
     }
-
-    if (
-      !currentUser.isAuthenticated &&
-      authenticatedRoutes[location.pathname] &&
-      navigate
-    ) {
+    if (!currentUser.isAuthenticated && !anonymousRoutes[location.pathname]) {
       navigate(RoutePaths.Global.Login);
     }
 
-    if (currentUser.isAuthenticated && anonymousRoutes[location.pathname]) {
-      navigate(RoutePaths.Authenticated.Home);
-    }
-
-    if (!allRoutes[location.pathname]) {
+    if (
+      currentUser.isAuthenticated &&
+      !location.pathname.startsWith(RoutePaths.Authenticated.Home)
+    ) {
       navigate(RoutePaths.Authenticated.Home);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,7 +74,11 @@ function App() {
               toggleCollapseSideBar={setCollapsed}
             />
             <StyledContent $inputHeight={fullHeight - 113}>
-              <Routes>{routeService.getAllRoutesDefinitions()}</Routes>
+              <Routes>
+                {RouteService.getAllRoutesDefinitions(
+                  currentUser.isAuthenticated
+                )}
+              </Routes>
             </StyledContent>
           </Layout>
         </Layout>

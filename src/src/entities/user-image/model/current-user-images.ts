@@ -16,7 +16,6 @@ const getCurrentUserImagesFx = createEffect(
       setCurrentUserImageLoading(true);
       const currentUserImagesRequest =
         await UserImageService.getCurrentUserActiveImages();
-      console.log(currentUserImagesRequest);
       setCurrentUserImageLoading(false);
       return currentUserImagesRequest.data.images;
     } catch {

@@ -1,5 +1,6 @@
 import { Route } from "react-router-dom";
 import { allRoutes } from "./routes";
+import NotFoundPage from "pages/not-found/ui";
 
 const getGlobalRouteDefinitions = () => {
   return Object.keys(allRoutes).map((x) => {
@@ -19,14 +20,29 @@ const getRouteDefinitions = () => {
   });
 };
 
-const getAllRoutesDefinitions = () => {
-  return [...getGlobalRouteDefinitions(), ...getRouteDefinitions()];
+const buildRoute = (path: string, params: Record<string, string>) => {
+  let resultPath = path;
+
+  Object.keys(params).forEach((key) => {
+    resultPath = resultPath.replace(`:${key}`, params[key]);
+  });
+
+  return resultPath;
 };
 
-const routeService = {
+const getAllRoutesDefinitions = (isUserAuthenticated: boolean) => {
+  return [
+    ...getGlobalRouteDefinitions(),
+    ...getRouteDefinitions(),
+    <Route element={<NotFoundPage />} path="*" />,
+  ];
+};
+
+const RouteService = {
   getGlobalRouteDefinitions,
   getRouteDefinitions,
   getAllRoutesDefinitions,
+  buildRoute,
 };
 
-export default routeService;
+export default RouteService;

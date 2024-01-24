@@ -29,6 +29,7 @@ const ApplicationForm = <T extends {}>({
   };
 
   useEffect(() => {
+    form.resetFields();
     form.setFieldsValue(values as any);
   }, [form, values]);
 

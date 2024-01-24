@@ -30,7 +30,6 @@ const CurrentUserInfoImagesUploader = () => {
   };
 
   const handleChange = (info: UploadChangeParam<UploadFile<File>>) => {
-    console.log(info);
     if (info.file.status === "uploading") {
       UserImageService.uploadCurrentUserImage(
         info.file.originFileObj as File

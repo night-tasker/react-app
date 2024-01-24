@@ -6,5 +6,7 @@ export class RoutePaths {
   public static Authenticated = {
     Home: "/application",
     Profile: "/application/profile",
+    Organizations: "/application/organizations",
+    Organization: "/application/organizations/:organizationId",
   };
 }
