@@ -2,6 +2,8 @@ import { Spin, Typography } from "antd";
 import useOrganizations from "entities/organization/model/user-organizations";
 import { useEffect } from "react";
 import { Organization } from "shared/api/typicode/models/organization";
+import { AlertMessageService } from "shared/services/alert-message-service";
+import OrganizationService from "shared/services/organization-service";
 import { styled } from "styled-components";
 import OrganizationModalForm from "widgets/organization-modal-form/ui";
 import OrganizationsList from "widgets/organizations-list/ui";
@@ -20,6 +22,16 @@ const OrganizationsPage = () => {
     fetchOrganizations();
   }, [fetchOrganizations]);
 
+  const onSaveOrganization = (organization: Organization) => {
+    return OrganizationService.createOrganization(organization)
+      .then(() => {
+        onCreateOrganization();
+      })
+      .catch(() => {
+        AlertMessageService.showErrorMessage("Ошибка при создании организации");
+      });
+  };
+
   return (
     <>
       <OrganizationsTitleWrapper>
@@ -27,8 +39,9 @@ const OrganizationsPage = () => {
       </OrganizationsTitleWrapper>
       <CreateOrganizationModalWrapper>
         <OrganizationModalForm
-          onSaving={onCreateOrganization}
           values={{} as Organization}
+          openButtonInner={<>Создать организацию</>}
+          onSave={onSaveOrganization}
         />
       </CreateOrganizationModalWrapper>
       <ListWrapper>

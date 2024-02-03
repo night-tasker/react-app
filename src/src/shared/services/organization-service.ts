@@ -4,6 +4,7 @@ import {
   CreateOrganizationDto,
   Organization,
   OrganizationUserRole,
+  UpdateOrganizationDto,
 } from "shared/api/typicode/models/organization";
 import { API_ORGANIZATIONS_URL } from "shared/config/paths";
 
@@ -27,11 +28,22 @@ const createOrganization = (
   return apiInstance.post(`${API_ORGANIZATIONS_URL}`, organization);
 };
 
+const updateOrganization = (
+  organizationId: string,
+  organization: UpdateOrganizationDto
+): AxiosPromise => {
+  return apiInstance.put(
+    `${API_ORGANIZATIONS_URL}/${organizationId}`,
+    organization
+  );
+};
+
 const OrganizationService = {
   getOrganizationById,
   getOrganizations,
   getOrganizationUserRole,
   createOrganization,
+  updateOrganization,
 };
 
 export default OrganizationService;

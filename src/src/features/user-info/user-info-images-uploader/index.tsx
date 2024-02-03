@@ -8,7 +8,7 @@ import { UploadFileImage } from "shared/api/typicode/models/user-image";
 import UserImageService from "shared/services/user-image-service";
 import { styled } from "styled-components";
 
-const CurrentUserInfoImagesUploader = () => {
+const UserInfoImagesUploader = () => {
   const [{ data: images, loading }, fetchImages] = useCurrentUserImages();
   const [, fetchActiveImage] = useCurrentUserActiveImage();
 
@@ -95,7 +95,7 @@ const CurrentUserInfoImagesUploader = () => {
   );
 };
 
-export default CurrentUserInfoImagesUploader;
+export default UserInfoImagesUploader;
 
 const UploadButton = styled.button`
   border: 0;

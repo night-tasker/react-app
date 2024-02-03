@@ -1,9 +1,9 @@
-import CurrentUserInfoForm from "features/current-user-info-form/ui";
+import UserInfoForm from "features/user-info/user-info-form/ui/ui";
 
 const UserProfilePage = () => {
   return (
     <>
-      <CurrentUserInfoForm />
+      <UserInfoForm />
     </>
   );
 };

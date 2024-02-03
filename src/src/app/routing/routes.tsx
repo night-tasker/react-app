@@ -63,6 +63,9 @@ export const authenticatedRoutes: Record<string, AuthenticatedRoute> = {
   [RoutePaths.Authenticated.Organizations]: {
     ...allRoutes[RoutePaths.Authenticated.Organizations],
   },
+  [RoutePaths.Authenticated.Organization]: {
+    ...allRoutes[RoutePaths.Authenticated.Organization],
+  },
 };
 
 export type Route = {

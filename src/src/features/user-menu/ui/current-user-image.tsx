@@ -1,8 +1,8 @@
-import { Avatar, Skeleton, Spin } from "antd";
+import { Avatar, Skeleton } from "antd";
 import useCurrentUserActiveImage from "entities/user-image/model/current-user-active-image";
 import { useEffect } from "react";
 
-const CurrentUserMenuImage = () => {
+const UserMenuImage = () => {
   const [
     { data: currentUserImage, loading: currentUserImageLoading },
     fetchCurrentUserImage,
@@ -21,4 +21,4 @@ const CurrentUserMenuImage = () => {
   );
 };
 
-export default CurrentUserMenuImage;
+export default UserMenuImage;

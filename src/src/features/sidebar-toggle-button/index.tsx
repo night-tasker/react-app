@@ -1,7 +1,7 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { styled } from "styled-components";
-import CurrentUserMenu from "../current-user-menu";
+import UserMenu from "../user-menu";
 interface Props {
   isCollapsedSideBar: boolean;
   toggleCollapseSideBar: (isCollapsed: boolean) => void;
@@ -27,9 +27,9 @@ const SideBarToggleButton = ({
           }}
         />
       </SideBareCollapseButtonWrapper>
-      <CurrentUserInfoWrapper>
-        <CurrentUserMenu />
-      </CurrentUserInfoWrapper>
+      <UserInfoWrapper>
+        <UserMenu />
+      </UserInfoWrapper>
     </Wrapper>
   );
 };
@@ -44,7 +44,7 @@ const SideBareCollapseButtonWrapper = styled.div`
   width: 100%;
 `;
 
-const CurrentUserInfoWrapper = styled.div`
+const UserInfoWrapper = styled.div`
   margin-right: 2%;
 `;
 

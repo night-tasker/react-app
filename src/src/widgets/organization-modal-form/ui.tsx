@@ -1,20 +1,24 @@
 import { Button, Modal } from "antd";
-import OrganizationForm from "features/organization-form/ui";
-import { useState } from "react";
-import {
-  CreateOrganizationDto,
-  Organization,
-} from "shared/api/typicode/models/organization";
-import { AlertMessageService } from "shared/services/alert-message-service";
-import OrganizationService from "shared/services/organization-service";
+import OrganizationForm from "features/organization/organization-form/ui";
+import { useEffect, useState } from "react";
+import { Organization } from "shared/api/typicode/models/organization";
 import styled from "styled-components";
 
 interface Props {
-  onSaving: () => void;
   values: Organization;
+  isOpen?: boolean;
+  openButtonInner?: React.ReactElement;
+  openButtonStyles?: React.CSSProperties;
+  onSave: (values: Organization) => Promise<void>;
 }
-const OrganizationModalForm = ({ onSaving, values }: Props) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+const OrganizationModalForm = ({
+  values,
+  isOpen,
+  openButtonInner,
+  openButtonStyles,
+  onSave,
+}: Props) => {
+  const [modalIsOpen, setModalIsOpen] = useState(isOpen ?? false);
   const [formValues, setFormValues] = useState(values);
 
   const openModal = () => {
@@ -26,20 +30,21 @@ const OrganizationModalForm = ({ onSaving, values }: Props) => {
     setFormValues({ ...values });
   };
 
-  const onSaveOrganization = (organization: CreateOrganizationDto) => {
-    OrganizationService.createOrganization(organization)
-      .then(() => {
-        closeModal();
-        onSaving();
-      })
-      .catch(() => {
-        AlertMessageService.showErrorMessage("Ошибка при создании организации");
-      });
+  const onSaveForm = (values: Organization) => {
+    onSave(values).then(() => {
+      closeModal();
+    });
   };
+
+  useEffect(() => {
+    setFormValues({ ...values });
+  }, [values]);
 
   return (
     <>
-      <Button onClick={openModal}>Создать организацию</Button>
+      <Button onClick={openModal} style={openButtonStyles}>
+        {openButtonInner}
+      </Button>
       <StyledModal
         open={modalIsOpen}
         onCancel={closeModal}
@@ -48,7 +53,7 @@ const OrganizationModalForm = ({ onSaving, values }: Props) => {
         cancelButtonProps={{ style: { display: "none" } }}
       >
         <OrganizationForm
-          onSaveOrganization={onSaveOrganization}
+          onSaveOrganization={onSaveForm}
           cancelButton={<Button onClick={closeModal}>Отменить</Button>}
           saveButton={
             <Button type="primary" htmlType="submit">

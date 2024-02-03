@@ -1,5 +1,5 @@
-import { RegisterUser } from "features/registration-form/config/models/register-user";
-import { LoginUser } from "features/login-form/config/models/login-user";
+import { RegisterUser } from "features/registration/registration-form/config/models/register-user";
+import { LoginUser } from "features/login/login-form/config/models/login-user";
 import TokenService from "./token-service";
 import { API_USERS_URL } from "../config/paths";
 import axiosInstance from "shared/api/base/api-instance";

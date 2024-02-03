@@ -1,6 +1,6 @@
 import { Field } from "shared/components/form/types/field";
 
-export const getCurrentUserInfoFields = (): Field[] => {
+export const getUserInfoFields = (): Field[] => {
   return [
     {
       name: "userName",

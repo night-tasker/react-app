@@ -4,6 +4,7 @@ export type Organization = {
   id: string;
   name: string;
   description?: string;
+  usersCount: number;
 };
 
 export type OrganizationUserRole =
@@ -11,6 +12,11 @@ export type OrganizationUserRole =
   | OrganizationUserRoleConstants.Member;
 
 export type CreateOrganizationDto = {
+  name: string;
+  description?: string;
+};
+
+export type UpdateOrganizationDto = {
   name: string;
   description?: string;
 };

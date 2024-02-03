@@ -6,30 +6,31 @@ const ApplicationMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const selectedKey = Object.keys(authenticatedRoutes).find(
-    (x) => authenticatedRoutes[x].path === location.pathname
-  )!;
+  const sideBarRoutes = Object.values(authenticatedRoutes).filter(
+    (path) => path.sideBarTab
+  );
 
-  const menuRoutes = Object.keys(authenticatedRoutes)
-    .map((x) => authenticatedRoutes[x])
-    .filter((x) => x.sideBarTab)
-    .map((x) => ({
-      key: x.key,
-      label: x.label,
-      icon: x.icon,
-      path: x.path,
+  const currentRoute = sideBarRoutes.find((route) => {
+    return location.pathname.includes(route.path);
+  });
 
-      onClick: () => {
-        navigate(x.path);
-      },
-    }));
+  const menuRoutes = sideBarRoutes.map((x) => ({
+    key: x.key,
+    label: x.label,
+    icon: x.icon,
+    path: x.path,
+
+    onClick: () => {
+      navigate(x.path);
+    },
+  }));
 
   return (
     <Menu
       theme="dark"
       mode="inline"
       items={menuRoutes}
-      selectedKeys={[selectedKey]}
+      selectedKeys={currentRoute ? [currentRoute.key] : []}
     />
   );
 };
