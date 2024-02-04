@@ -26,7 +26,10 @@ const OrganizationPage = () => {
 
   return (
     <OrganizationPageWrapper>
-      <Skeleton loading={organizationLoading} active={organization === null}>
+      <Skeleton
+        loading={organizationLoading || organization === null}
+        active={organization === null}
+      >
         <OrganizationHeaderWrapper>
           <Typography.Title level={3}>
             Организация <b>{organization?.name}</b>

@@ -7,6 +7,7 @@ import {
 } from "effector";
 import { useStore } from "effector-react";
 import { ActiveUserImage } from "shared/api/typicode/models/user-image";
+import { AlertMessageService } from "shared/services/alert-message-service";
 import UserImageService from "shared/services/user-image-service";
 
 const getCurrentUserImageFx = createEffect(
@@ -19,6 +20,7 @@ const getCurrentUserImageFx = createEffect(
       return currentUserImageRequest.data;
     } catch {
       setCurrentUserImageLoading(false);
+      AlertMessageService.showErrorMessage("Ошибка загрузки фото пользователя");
       return null;
     }
   }

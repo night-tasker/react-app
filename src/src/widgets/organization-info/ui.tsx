@@ -8,6 +8,9 @@ import { OrganizationUserActionKey } from "./types/organization-user-action-key"
 import OrganizationService from "shared/services/organization-service";
 import { AlertMessageService } from "shared/services/alert-message-service";
 import getAdminUserInfoActions from "./lib/get-admin-actions";
+import { useNavigate } from "react-router-dom";
+import { RoutePaths } from "app/routing/route-paths";
+import moment from "moment";
 
 interface Props {
   organization: Organization;
@@ -17,6 +20,7 @@ const OrganizationInfo = ({ organization, fetchOrganization }: Props) => {
   const [{ data: organizationUserRole }] = useOrganizationUserRole();
   const [openActionKeyModal, setOpenActionKeyModal] =
     useState<OrganizationUserActionKey | null>(null);
+  const navigate = useNavigate();
 
   const onSaveEditOrganization = (values: Organization) => {
     return OrganizationService.updateOrganization(organization.id, values)
@@ -31,12 +35,24 @@ const OrganizationInfo = ({ organization, fetchOrganization }: Props) => {
       );
   };
 
+  const onDelete = (organizationId: string) => {
+    OrganizationService.removeOrganization(organizationId)
+      .then(() => {
+        AlertMessageService.showSuccessMessage("Организация успешно удалёна");
+        navigate(RoutePaths.Authenticated.Organizations);
+      })
+      .catch(() =>
+        AlertMessageService.showErrorMessage("Ошибка при удалении организации")
+      );
+  };
+
   const getAvailableActions = () => {
     if (organizationUserRole === OrganizationUserRoleConstants.Admin) {
       return getAdminUserInfoActions(
         organization,
         openActionKeyModal,
-        onSaveEditOrganization
+        onSaveEditOrganization,
+        onDelete
       );
     }
     return [];
@@ -55,6 +71,12 @@ const OrganizationInfo = ({ organization, fetchOrganization }: Props) => {
           <OrganizationCardFieldWrapper>
             <Typography.Text>Количество пользователей: </Typography.Text>
             <Typography.Text strong>{organization?.usersCount}</Typography.Text>
+          </OrganizationCardFieldWrapper>
+          <OrganizationCardFieldWrapper>
+            <Typography.Text>Дата создания: </Typography.Text>
+            <Typography.Text strong>
+              {moment(organization?.createdAt).format("DD.MM.YYYY")}
+            </Typography.Text>
           </OrganizationCardFieldWrapper>
         </StyledCard>
       </OrganizationCardWrapper>

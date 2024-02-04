@@ -6,6 +6,8 @@ import {
   OrganizationUserRole,
   UpdateOrganizationDto,
 } from "shared/api/typicode/models/organization";
+import { SearchCriteria } from "shared/api/typicode/search/search-criteria";
+import { SearchResult } from "shared/api/typicode/search/search-result";
 import { API_ORGANIZATIONS_URL } from "shared/config/paths";
 
 const getOrganizationById = (id: string): AxiosPromise<Organization> => {
@@ -20,6 +22,12 @@ const getOrganizationUserRole = (
   id: string
 ): AxiosPromise<{ role: OrganizationUserRole }> => {
   return apiInstance.get(`${API_ORGANIZATIONS_URL}/${id}/role`);
+};
+
+const searchOrganizations = (
+  searchCriteria: SearchCriteria
+): AxiosPromise<SearchResult<Organization>> => {
+  return apiInstance.post(`${API_ORGANIZATIONS_URL}/search`, searchCriteria);
 };
 
 const createOrganization = (
@@ -38,12 +46,18 @@ const updateOrganization = (
   );
 };
 
+const removeOrganization = (organizationId: string): AxiosPromise => {
+  return apiInstance.delete(`${API_ORGANIZATIONS_URL}/${organizationId}`);
+};
+
 const OrganizationService = {
   getOrganizationById,
   getOrganizations,
   getOrganizationUserRole,
+  searchOrganizations,
   createOrganization,
   updateOrganization,
+  removeOrganization,
 };
 
 export default OrganizationService;

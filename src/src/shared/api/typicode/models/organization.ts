@@ -5,6 +5,7 @@ export type Organization = {
   name: string;
   description?: string;
   usersCount: number;
+  createdAt: string;
 };
 
 export type OrganizationUserRole =
